@@ -5,6 +5,9 @@
 import tkinter as tk
 from tkinter import ttk
 from collections import defaultdict  # Used to store vibe scores
+from PIL import Image, ImageTk
+
+# ============= QUIZ DATA AND LOGIC =============
 
 
 # ============= QUIZ DATA AND LOGIC =============
