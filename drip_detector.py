@@ -2,11 +2,12 @@
 # Vibes: Soft, Casual, Preppy, Alternative, Gamer, Sporty
 # Authors: Christine Bui, Victoria Rey
 
+import os
 import tkinter as tk
 from tkinter import ttk
 from collections import defaultdict  # Used to store vibe scores
 from PIL import Image, ImageTk
-import os
+
 
 # ============= QUIZ DATA AND LOGIC =============
 
@@ -26,11 +27,20 @@ questions = [
         "question": "Favorite hobbies?",
         "options": {
             "A": {"text": "Reading, journaling, or relaxing", "vibes": ["Soft"]},
-            "B": {"text": "Hanging out with friends, watching shows", "vibes": ["Casual"]},
-            "C": {"text": "Golf, studying, or structured activities", "vibes": ["Preppy"]},
+            "B": {
+                "text": "Hanging out with friends, watching shows",
+                "vibes": ["Casual"],
+            },
+            "C": {
+                "text": "Golf, studying, or structured activities",
+                "vibes": ["Preppy"],
+            },
             "D": {"text": "Gaming or being online", "vibes": ["Gamer"]},
             "E": {"text": "Working out or playing sports", "vibes": ["Sporty"]},
-            "F": {"text": "Art, music, or creative expression", "vibes": ["Alternative"]},
+            "F": {
+                "text": "Art, music, or creative expression",
+                "vibes": ["Alternative"],
+            },
         },
     },
     {
@@ -132,6 +142,7 @@ questions = [
     },
 ]
 
+
 # Takes list of answers and returns final vibe
 def calculate_vibe(answers: list[str]) -> str:
     scores: defaultdict[str, int] = defaultdict(int)
@@ -158,12 +169,13 @@ def calculate_vibe(answers: list[str]) -> str:
 
 # ============= GUI CODE =============
 
+
 class DripDetectorQuiz:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("Drip Detector - What's Your Vibe?")
-        self.root.geometry("600x550")
-        self.root.resizable(False, False)
+        self.root.geometry("650x700")
+        self.root.resizable(True, True)
 
         # Set color scheme
         self.bg_color = "#f5f0eb"
@@ -178,6 +190,7 @@ class DripDetectorQuiz:
         self.answers: list[str] = []
         self.current_question_index: int = 0
         self.answer_var: tk.StringVar | None = None
+        self.result_photo: ImageTk.PhotoImage | None = None
 
         # Create frames
         self.setup_frames()
@@ -302,7 +315,6 @@ class DripDetectorQuiz:
         for key, value in options.items():
             option_text = value["text"]
 
-            # Create frame for each option
             option_frame = tk.Frame(self.question_frame, bg=self.bg_color)
             option_frame.pack(fill=tk.X, pady=5)
 
@@ -314,7 +326,6 @@ class DripDetectorQuiz:
                 font=("Helvetica", 11),
                 bg=self.bg_color,
                 fg=self.text_color,
-                selectcolor=self.bg_color,
                 activebackground=self.bg_color,
                 command=self.on_answer_selected,
                 wraplength=520,
@@ -322,7 +333,6 @@ class DripDetectorQuiz:
             )
             radio.pack(anchor=tk.W, padx=20)
 
-            # Hover effect
             def on_enter(e: tk.Event, btn: tk.Radiobutton = radio) -> None:
                 btn.config(cursor="hand2")
 
@@ -332,40 +342,33 @@ class DripDetectorQuiz:
             radio.bind("<Enter>", on_enter)
             radio.bind("<Leave>", on_leave)
 
-        # Update next button text on last question
         if self.current_question_index == len(questions) - 1:
             self.next_button.config(text="Submit Quiz →")
         else:
             self.next_button.config(text="Next →")
 
-        # Enable/disable prev button
         if self.current_question_index > 0:
             self.prev_button.config(state=tk.NORMAL)
         else:
             self.prev_button.config(state=tk.DISABLED)
 
-        # Disable next button initially if no answer selected
         if not self.answer_var.get():
             self.next_button.config(state=tk.DISABLED)
         else:
             self.next_button.config(state=tk.NORMAL)
 
     def on_answer_selected(self) -> None:
-        # Enable next button when an answer is selected
         self.next_button.config(state=tk.NORMAL)
 
     def next_question(self) -> None:
-        # Save current answer
         if not self.answer_var or not self.answer_var.get():
             return
 
-        # Update answers list
         if len(self.answers) > self.current_question_index:
             self.answers[self.current_question_index] = self.answer_var.get()
         else:
             self.answers.append(self.answer_var.get())
 
-        # Check if this was the last question
         if self.current_question_index == len(questions) - 1:
             self.show_results()
         else:
@@ -373,79 +376,64 @@ class DripDetectorQuiz:
             self.show_question()
 
     def prev_question(self) -> None:
-        # Save current answer
         if self.answer_var and self.answer_var.get():
             if len(self.answers) > self.current_question_index:
                 self.answers[self.current_question_index] = self.answer_var.get()
             else:
                 self.answers.append(self.answer_var.get())
 
-        # Go to previous question
-        self.current_question_index -= 1
-        self.show_question()
-
-    def prev_question(self) -> None:
-        # Save current answer
-        if self.answer_var and self.answer_var.get():
-            if len(self.answers) > self.current_question_index:
-                self.answers[self.current_question_index] = self.answer_var.get()
-            else:
-                self.answers.append(self.answer_var.get())
-
-        # Go to previous question
         self.current_question_index -= 1
         self.show_question()
 
     def show_results(self) -> None:
-        # Calculate vibe
         vibe = calculate_vibe(self.answers)
 
-        # Vibe descriptions and emojis
         vibe_info = {
             "Soft": {
                 "emoji": "🌸",
                 "color": "#f5c6d0",
-                "description": "You're gentle, romantic, and love all things cute and cozy!",
+                "description": "You're gentle, romantic, and love all things cute and cozy! Your aesthetic is dreamy and soft.",
             },
             "Casual": {
                 "emoji": "👕",
                 "color": "#a8b2b8",
-                "description": "You're laid-back and easygoing.",
+                "description": "You're laid-back, easygoing, and keep things simple but stylish. Comfort is key for you!",
             },
             "Preppy": {
                 "emoji": "🎩",
                 "color": "#8b9dc3",
-                "description": "You're polished and put-together.",
+                "description": "You're polished, put-together, and have classic taste. Always looking sharp and sophisticated!",
             },
             "Alternative": {
                 "emoji": "🎸",
                 "color": "#7b6c8c",
-                "description": "You're creative and unique.",
+                "description": "You're unique, creative, and march to the beat of your own drum. Your style is edgy and expressive!",
             },
             "Gamer": {
                 "emoji": "🎮",
                 "color": "#6b8c6b",
-                "description": "You're techy and chill.",
+                "description": "You're tech-savvy, love gaming culture, and prioritize comfort for those long gaming sessions!",
             },
             "Sporty": {
                 "emoji": "⚡",
                 "color": "#c4a35a",
-                "description": "You're active and energetic.",
+                "description": "You're active, energetic, and always ready to move. Athletic wear is your everyday style!",
             },
         }
 
         info = vibe_info.get(vibe, vibe_info["Casual"])
 
-        # Image logic
-        gender_answer = self.answers[0] if self.answers else "C"
+        # Get gender from first answer
+        gender_answer = self.answers[0] if self.answers else "A"
+        if gender_answer == "A":
+            gender = "girl"
+        elif gender_answer == "B":
+            gender = "boy"
+        else:
+            gender = "girl"  # fallback for Other / Prefer not to say
 
-        gender_map = {
-            "A": "girl",
-            "B": "boy",
-            "C": "other",
-        }
-
-        vibe_map = {
+        # Special case because Alternative uses "alt" in filenames
+        vibe_file_map = {
             "Soft": "soft",
             "Casual": "casual",
             "Preppy": "preppy",
@@ -454,40 +442,24 @@ class DripDetectorQuiz:
             "Sporty": "sporty",
         }
 
-        gender_text = gender_map.get(gender_answer, "other")
-        vibe_text = vibe_map.get(vibe, "casual")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        image_filename = os.path.join(
+            base_dir, "images", f"{vibe_file_map[vibe]}{gender}.jpg"
+        )
 
-        image_path = os.path.join("images", f"{vibe_text}{gender_text}.jpg")
-
-        # Clear the content frame
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
-        # Results display
         results_frame = tk.Frame(self.content_frame, bg=self.bg_color)
         results_frame.pack(fill=tk.BOTH, expand=True)
 
-        # Show image or emoji fallback
-        if os.path.exists(image_path):
-            img = Image.open(image_path)
-            img = img.resize((220, 220))
-            photo = ImageTk.PhotoImage(img)
-
-            image_label = tk.Label(
-                results_frame,
-                image=photo,
-                bg=self.bg_color,
-            )
-            image_label.image = photo
-            image_label.pack(pady=(20, 10))
-        else:
-            emoji_label = tk.Label(
-                results_frame,
-                text=info["emoji"],
-                font=("Helvetica", 72),
-                bg=self.bg_color,
-            )
-            emoji_label.pack(pady=(20, 10))
+        emoji_label = tk.Label(
+            results_frame,
+            text=info["emoji"],
+            font=("Helvetica", 60),
+            bg=self.bg_color,
+        )
+        emoji_label.pack(pady=(10, 5))
 
         result_label = tk.Label(
             results_frame,
@@ -501,11 +473,34 @@ class DripDetectorQuiz:
         vibe_label = tk.Label(
             results_frame,
             text=vibe,
-            font=("Helvetica", 36, "bold"),
+            font=("Helvetica", 32, "bold"),
             bg=self.bg_color,
             fg=self.primary_color,
         )
         vibe_label.pack(pady=10)
+
+        # Load and display image
+        try:
+            img = Image.open(image_filename)
+            img.thumbnail((200, 200))
+            self.result_photo = ImageTk.PhotoImage(img)
+
+            image_label = tk.Label(
+                results_frame,
+                image=self.result_photo,
+                bg=self.bg_color,
+            )
+            image_label.pack(pady=10)
+
+        except FileNotFoundError:
+            error_label = tk.Label(
+                results_frame,
+                text=f"Image not found: {image_filename}",
+                font=("Helvetica", 10),
+                bg=self.bg_color,
+                fg="red",
+            )
+            error_label.pack(pady=10)
 
         desc_label = tk.Label(
             results_frame,
@@ -516,7 +511,7 @@ class DripDetectorQuiz:
             wraplength=450,
             justify=tk.CENTER,
         )
-        desc_label.pack(pady=20)
+        desc_label.pack(pady=10)
 
         color_bar = tk.Frame(results_frame, bg=info["color"], height=10)
         color_bar.pack(fill=tk.X, pady=20)
@@ -548,41 +543,33 @@ class DripDetectorQuiz:
         )
         quit_button.pack(side=tk.LEFT, padx=10)
 
-        # Hover effects
-        def on_restart_enter(e: tk.Event) -> None:
-            restart_button.config(bg="#8b6b42")
+        def on_enter(e: tk.Event, btn: tk.Button, color: str) -> None:
+            btn.config(bg=color)
 
-        def on_restart_leave(e: tk.Event) -> None:
-            restart_button.config(bg=self.accent_color)
+        def on_leave(e: tk.Event, btn: tk.Button, color: str) -> None:
+            btn.config(bg=color)
 
-        def on_quit_enter(e: tk.Event) -> None:
-            quit_button.config(bg="#b4a490")
-
-        def on_quit_leave(e: tk.Event) -> None:
-            quit_button.config(bg=self.secondary_color)
-
-        restart_button.bind("<Enter>", on_restart_enter)
-        restart_button.bind("<Leave>", on_restart_leave)
-        quit_button.bind("<Enter>", on_quit_enter)
-        quit_button.bind("<Leave>", on_quit_leave)
+        restart_button.bind("<Enter>", lambda e: on_enter(e, restart_button, "#8b6b42"))
+        restart_button.bind(
+            "<Leave>", lambda e: on_leave(e, restart_button, self.accent_color)
+        )
+        quit_button.bind("<Enter>", lambda e: on_enter(e, quit_button, "#b4a490"))
+        quit_button.bind(
+            "<Leave>", lambda e: on_leave(e, quit_button, self.secondary_color)
+        )
 
     def restart_quiz(self) -> None:
-        # Reset quiz state
         self.answers = []
         self.current_question_index = 0
+        self.result_photo = None
 
-        # Rebuild the content frame
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
-        # Recreate frames
         self.setup_frames_in_content()
-
-        # Start over
         self.show_question()
 
     def setup_frames_in_content(self) -> None:
-        # Recreate progress frame
         self.progress_frame = tk.Frame(self.content_frame, bg=self.bg_color)
         self.progress_frame.pack(fill=tk.X, pady=(0, 20))
 
@@ -603,62 +590,9 @@ class DripDetectorQuiz:
         )
         self.progress_bar.pack(pady=5)
 
-        # Recreate question frame
         self.question_frame = tk.Frame(self.content_frame, bg=self.bg_color)
         self.question_frame.pack(fill=tk.BOTH, expand=True)
 
-        # Recreate navigation frame
-        self.nav_frame = tk.Frame(self.content_frame, bg=self.bg_color)
-        self.nav_frame.pack(fill=tk.X, pady=(20, 0))
-
-        self.prev_button = tk.Button(
-            self.nav_frame,
-            text="← Previous",
-            font=("Helvetica", 10),
-            bg=self.secondary_color,
-            fg=self.text_color,
-            command=self.prev_question,
-            state=tk.DISABLED,
-        )
-        self.prev_button.pack(side=tk.LEFT, padx=5)
-
-        self.next_button = tk.Button(
-            self.nav_frame,
-            text="Next →",
-            font=("Helvetica", 10, "bold"),
-            bg=self.accent_color,
-            fg="white",
-            command=self.next_question,
-        )
-        self.next_button.pack(side=tk.RIGHT, padx=5)
-
-    def setup_frames_in_content(self) -> None:
-        # Recreate progress frame
-        self.progress_frame = tk.Frame(self.content_frame, bg=self.bg_color)
-        self.progress_frame.pack(fill=tk.X, pady=(0, 20))
-
-        self.progress_label = tk.Label(
-            self.progress_frame,
-            text="",
-            font=("Helvetica", 10),
-            bg=self.bg_color,
-            fg=self.text_color,
-        )
-        self.progress_label.pack()
-
-        self.progress_bar = ttk.Progressbar(
-            self.progress_frame,
-            length=400,
-            mode="determinate",
-            style="TProgressbar",
-        )
-        self.progress_bar.pack(pady=5)
-
-        # Recreate question frame
-        self.question_frame = tk.Frame(self.content_frame, bg=self.bg_color)
-        self.question_frame.pack(fill=tk.BOTH, expand=True)
-
-        # Recreate navigation frame
         self.nav_frame = tk.Frame(self.content_frame, bg=self.bg_color)
         self.nav_frame.pack(fill=tk.X, pady=(20, 0))
 
@@ -687,7 +621,6 @@ class DripDetectorQuiz:
 def main() -> None:
     root = tk.Tk()
 
-    # Configure ttk styles
     style = ttk.Style()
     style.theme_use("clam")
     style.configure(
