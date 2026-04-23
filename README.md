@@ -28,3 +28,9 @@ The project is organized so that the quiz logic is separate from the GUI
   - `DripDetectorQuiz` manages the Tkinter GUI
   - The GUI handles rendering questions, collecting input, navigation, result display, and animation
   - The GUI calls the underlying quiz logic rather than duplicating scoring behavior
+
+## Use of AI Tools
+
+AI tools (e.g., ChatGPT) were used to assist with formatting reusable function structures and organizing question/answer templates. AI was also used for brainstorming minor UI enhancements.
+
+All algorithm development, integration, debugging, and final code decisions were completed by the project team.
