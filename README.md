@@ -3,7 +3,7 @@ detects your vibe based on a few quiz questions :)
 
 ## Project Overview
 
-The application presents the user with a series of questions, collects their answers, calculates their vibe, and displays their result with an image and description.
+The app asks a series of questions, collects your answers, figures out your vibe, and shows a result with an image and description.
 
 The six possible vibes are:
 
@@ -14,9 +14,20 @@ The six possible vibes are:
 - Gamer
 - Sporty
 
-## Software Architecture
+## Running the App
 
-The project is organized so that the quiz logic is separate from the GUI
+1. Make sure you're in the project folder
+2. Run the main file: drip_detector.py
+
+The quiz window should pop up and you're good to go.
+
+## Running Tests
+
+If you want to run the tests, use pytest
+
+This will run everything in the tests/ folder and show you what passes/fails.
+
+If pytest isn’t installed: pip install pytest
 
 ### components
 
@@ -34,3 +45,4 @@ The project is organized so that the quiz logic is separate from the GUI
 AI tools (e.g., ChatGPT) were used to assist with formatting reusable function structures and organizing question/answer templates. AI was also used for brainstorming minor UI enhancements.
 
 All algorithm development, integration, debugging, and final code decisions were completed by the project team.
+
