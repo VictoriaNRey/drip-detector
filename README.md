@@ -17,7 +17,9 @@ The six possible vibes are:
 ## Running the App
 
 1. Make sure you're in the project folder
-2. Run the main file: drip_detector.py
+2. Run the main file: 
+
+drip-dector/drip_detector.py
 
 The quiz window should pop up and you're good to go.
 
@@ -37,11 +39,11 @@ If pytest isn’t installed: pip install pytest
 
 - **Interface layer**
   - `DripDetectorQuiz` runs the Tkinter GUI
-  - Handles displaying questions, collecting answers, moving between screens, and showing results/animations
+  - Handles displaying questions, collecting answers, moving between screens, and showing results
   - Uses the quiz logic instead of redoing the scoring in the GUI
 
 ## Use of AI Tools
 
-AI tools (e.g., ChatGPT) were used in part to help format some functions and organize the question/answer structure. It was also used to brainstorm a few UI ideas.
+AI tools were used in part to help format some functions and organize the question/answer structure. It was also used to brainstorm a few UI ideas
 
-All core logic, debugging, and final implementation decisions were done by the project team, and anything from AI was reviewed and adjusted before being used.
+All core logic, debugging, and final implementation decisions were done by the project team, and anything from AI was reviewed and adjusted before being used
