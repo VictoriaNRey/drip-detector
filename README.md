@@ -19,13 +19,19 @@ The six possible vibes are:
 1. Make sure you're in the project folder
 2. Run the main file: 
 
-drip-dector/drip_detector.py
+```bash
+python drip_detector.py
+```
 
-The quiz window should pop up and you're good to go.
+The quiz window should pop up and you're good to go!
 
 ## Running Tests
 
-If you want to run the tests, use pytest
+If you want to run the tests use:
+
+```bash
+pytest
+```
 
 This will run everything in the tests/ folder and show you what passes/fails.
 
