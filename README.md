@@ -3,7 +3,7 @@ detects your vibe based on a few quiz questions :)
 
 ## Project Overview
 
-The application presents the user with a series of questions, collects their answers, calculates their vibe, and displays their result with an image and description.
+The app asks a series of questions, collects your answers, figures out your vibe, and shows a result with an image and description.
 
 The six possible vibes are:
 
@@ -14,23 +14,34 @@ The six possible vibes are:
 - Gamer
 - Sporty
 
-## Software Architecture
+## Running the App
 
-The project is organized so that the quiz logic is separate from the GUI
+1. Make sure you're in the project folder
+2. Run the main file: drip_detector.py
 
-### components
+The quiz window should pop up and you're good to go.
+
+## Running Tests
+
+If you want to run the tests, use pytest
+
+This will run everything in the tests/ folder and show you what passes/fails.
+
+If pytest isn’t installed: pip install pytest
+
+## Components
 
 - **Business logic**
-  - `calculate_vibe(answers)` computes the final vibe from a list of answer choices
-  - `questions` stores the quiz questions, answer options, and vibe mappings
+  - `calculate_vibe(answers)` figures out your final vibe based on your answers
+  - `questions` holds all the quiz questions, answer choices, and vibe mappings
 
 - **Interface layer**
-  - `DripDetectorQuiz` manages the Tkinter GUI
-  - The GUI handles rendering questions, collecting input, navigation, result display, and animation
-  - The GUI calls the underlying quiz logic rather than duplicating scoring behavior
+  - `DripDetectorQuiz` runs the Tkinter GUI
+  - Handles displaying questions, collecting answers, moving between screens, and showing results/animations
+  - Uses the quiz logic instead of redoing the scoring in the GUI
 
 ## Use of AI Tools
 
-AI tools (e.g., ChatGPT) were used to assist with formatting reusable function structures and organizing question/answer templates. AI was also used for brainstorming minor UI enhancements.
+AI tools (e.g., ChatGPT) were used in part to help format some functions and organize the question/answer structure. It was also used to brainstorm a few UI ideas.
 
-All algorithm development, integration, debugging, and final code decisions were completed by the project team.
+All core logic, debugging, and final implementation decisions were done by the project team, and anything from AI was reviewed and adjusted before being used.
