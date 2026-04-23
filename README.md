@@ -1,6 +1,9 @@
 # drip-detector
 detects your vibe based on a few quiz questions :)
 
+*drip - very swag and cool; can be used to describe an outfit/accessory, person, song, etc.*
+*used in a sentence: "yall like the drip?"*
+
 ## Project Overview
 
 The app asks a series of questions, collects your answers, figures out your vibe, and shows a result with an image and description
