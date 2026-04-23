@@ -29,20 +29,19 @@ This will run everything in the tests/ folder and show you what passes/fails.
 
 If pytest isn’t installed: pip install pytest
 
-### components
+## Components
 
 - **Business logic**
-  - `calculate_vibe(answers)` computes the final vibe from a list of answer choices
-  - `questions` stores the quiz questions, answer options, and vibe mappings
+  - `calculate_vibe(answers)` figures out your final vibe based on your answers
+  - `questions` holds all the quiz questions, answer choices, and vibe mappings
 
 - **Interface layer**
-  - `DripDetectorQuiz` manages the Tkinter GUI
-  - The GUI handles rendering questions, collecting input, navigation, result display, and animation
-  - The GUI calls the underlying quiz logic rather than duplicating scoring behavior
+  - `DripDetectorQuiz` runs the Tkinter GUI
+  - Handles displaying questions, collecting answers, moving between screens, and showing results/animations
+  - Uses the quiz logic instead of redoing the scoring in the GUI
 
 ## Use of AI Tools
 
-AI tools (e.g., ChatGPT) were used to assist with formatting reusable function structures and organizing question/answer templates. AI was also used for brainstorming minor UI enhancements.
+AI tools (e.g., ChatGPT) were used in part to help format some functions and organize the question/answer structure. It was also used to brainstorm a few UI ideas.
 
-All algorithm development, integration, debugging, and final code decisions were completed by the project team.
-
+All core logic, debugging, and final implementation decisions were done by the project team, and anything from AI was reviewed and adjusted before being used.
