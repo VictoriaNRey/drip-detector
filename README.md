@@ -1,8 +1,36 @@
 # drip-detector
-### what does "drip" mean? 
-*drip - very swag and cool; can be used to describe an outfit/accessory, person, song, etc.*
+detects your vibe based on a few quiz questions :)
 
-*used in a sentence: "yall like the drip?"*
+## Project Overview
 
-### the purpose of this project
-a quiz-based project that generates your personal drip (with pictures and fun description provided) :)
+The application presents the user with a series of questions, collects their answers, calculates their vibe, and displays their result with an image and description.
+
+The six possible vibes are:
+
+- Soft
+- Casual
+- Preppy
+- Alternative
+- Gamer
+- Sporty
+
+## Software Architecture
+
+The project is organized so that the quiz logic is separate from the GUI
+
+### components
+
+- **Business logic**
+  - `calculate_vibe(answers)` computes the final vibe from a list of answer choices
+  - `questions` stores the quiz questions, answer options, and vibe mappings
+
+- **Interface layer**
+  - `DripDetectorQuiz` manages the Tkinter GUI
+  - The GUI handles rendering questions, collecting input, navigation, result display, and animation
+  - The GUI calls the underlying quiz logic rather than duplicating scoring behavior
+
+## Use of AI Tools
+
+AI tools (e.g., ChatGPT) were used to assist with formatting reusable function structures and organizing question/answer templates. AI was also used for brainstorming minor UI enhancements.
+
+All algorithm development, integration, debugging, and final code decisions were completed by the project team.
