@@ -187,8 +187,8 @@ class DripDetectorQuiz:
     def __init__(self, root: tk.Tk) -> None:
         self.root = root
         self.root.title("Drip Detector - What's Your Vibe?")
-        self.root.geometry("980x760")
-        self.root.minsize(900, 720)
+        self.root.geometry("980x820")
+        self.root.minsize(850, 700)
         self.root.resizable(True, True)
 
         self.bg_color = "#eaf4ff"
@@ -337,22 +337,23 @@ class DripDetectorQuiz:
             highlightthickness=2,
             bd=0,
             width=700,
+            height=75,
         )
-        question_card.pack(pady=(0, 12))
+        question_card.pack(pady=(0, 8))
         question_card.pack_propagate(False)
 
         question_label = tk.Label(
             question_card,
             text=question_text,
-            font=("Helvetica", 16, "bold"),
+            font=("Helvetica", 15, "bold"),
             bg=self.card_color,
             fg=self.primary_color,
             wraplength=640,
             justify=tk.CENTER,
-            padx=20,
-            pady=18,
+            padx=16,
+            pady=10,
         )
-        question_label.pack()
+        question_label.pack(fill=tk.BOTH, expand=True)
 
         self.answer_var = tk.StringVar()
 
@@ -382,7 +383,7 @@ class DripDetectorQuiz:
                 highlightbackground=self.option_border,
                 highlightcolor=self.dark_accent,
                 padx=16,
-                pady=12,
+                pady=8,
                 anchor="w",
                 justify=tk.LEFT,
                 wraplength=560,
@@ -390,7 +391,7 @@ class DripDetectorQuiz:
                 cursor="hand2",
                 command=self.on_answer_selected,
             )
-            radio.pack(pady=4, ipady=1)
+            radio.pack(pady=3)
             self.option_buttons.append(radio)
 
         self.update_option_styles()
