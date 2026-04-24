@@ -23,22 +23,38 @@ The six possible vibes are:
 2. Run the main file: 
 
 ```bash
-drip_detector.py
+python drip_detector.py
+```
+
+On some systems (Mac) you might need:
+
+```bash
+python3 drip_detector.py
 ```
 
 The quiz window should pop up and you're good to go!
 
 ## Running Tests
 
-If you want to run the tests
+To run the tests:
 
 ```bash
 python -m pytest
 ``` 
 
-This will run all tests in test_drip_detector.py file and show you what passes/fails
+This will run all tests in test_drip_detector.py and show which pass/fail
 
-If pytest isn’t installed: pip install pytest
+If pytest isn’t installed: 
+
+```bash
+pip install pytest
+```
+
+If pytest isn’t installed:
+
+```bash
+pip install pytest
+```
 
 ## Components
 
