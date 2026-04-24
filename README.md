@@ -27,19 +27,19 @@ The six possible vibes are:
 
 4. Inside the folder, open a terminal
 
-Windows: right-click in the folder and select “Open in Terminal"
+- Windows: right-click in the folder and select “Open in Terminal"
 
-Mac: right-click the folder and select “New Terminal at Folder” or open Terminal and navigate to the folder
+- Mac: right-click the folder and select “New Terminal at Folder” or open Terminal and navigate to the folder
 
 5. Install Pillow image package if needed
 
-Windows
+*Windows*
 
 ```bash
 pip install pillow
 ```
 
-Mac
+*Mac*
 
 ```bash
 pip3 install pillow
@@ -47,13 +47,13 @@ pip3 install pillow
 
 6. Run the quiz by typing this in the terminal
 
-Windows
+*Windows*
 
 ```bash 
 python drip_detector.py
 ```
 
-Mac
+*Mac*
 
 ```bash
 python3 drip_detector.py
@@ -67,19 +67,19 @@ The quiz window should pop up and you're good to go!
 
 2. Open a terminal in that folder
 
-Windows: right-click inside the folder and select “Open in Terminal”
+- Windows: right-click inside the folder and select “Open in Terminal”
 
-Mac: right-click the folder and select “New Terminal at Folder” or open Terminal and navigate to the folder
+- Mac: right-click the folder and select “New Terminal at Folder” or open Terminal and navigate to the folder
 
 3. Install pytest if you have not already done so
 
-Windows
+*Windows*
 
 ```bash
 pip install pytest
 ```
 
-Mac
+*Mac*
 
 ```bash
 pip3 install pytest
@@ -87,13 +87,13 @@ pip3 install pytest
 
 4. In the same terminal window, run the tests using Python
 
-Windows
+*Windows*
 
 ```bash
 python -m pytest
 ```
 
-Mac
+*Mac*
 
 ```bash
 python3 -m pytest
@@ -106,11 +106,11 @@ python3 -m pytest
 This will run all tests in test_drip_detector.py and display the results!
 ## Components
 
-- **Business logic**
+- Business logic
   - `calculate_vibe(answers)` figures out your final vibe based on your answers
   - `questions` holds all the quiz questions, answer choices, and vibe mappings
 
-- **Interface layer**
+- Interface layer
   - `DripDetectorQuiz` runs the Tkinter GUI
   - Handles displaying questions, collecting answers, moving between screens, and showing results
   - Uses the quiz logic instead of redoing the scoring in the GUI
