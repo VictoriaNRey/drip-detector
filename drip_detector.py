@@ -5,8 +5,9 @@
 import os
 import random
 import tkinter as tk
-from tkinter import ttk
 from collections import defaultdict
+from tkinter import ttk
+
 from PIL import Image, ImageTk
 
 
@@ -49,27 +50,12 @@ questions = [
     {
         "question": "What are your favorite colors?",
         "options": {
-            "A": {
-                "text": "Pastel & light (baby blue, lavender)",
-                "vibes": ["Soft"],
-            },
+            "A": {"text": "Pastel & light (baby blue, lavender)", "vibes": ["Soft"]},
             "B": {"text": "Neutrals (black, white, beige)", "vibes": ["Casual"]},
-            "C": {
-                "text": "Elegant & timeless (navy blue, burgundy)",
-                "vibes": ["Preppy"],
-            },
-            "D": {
-                "text": "Neon & hot (hot pink, neon green)",
-                "vibes": ["Gamer"],
-            },
-            "E": {
-                "text": "Bright & bold (bright red, neon yellow)",
-                "vibes": ["Sporty"],
-            },
-            "F": {
-                "text": "Dark (black, charcoal gray, deep purple)",
-                "vibes": ["Alternative"],
-            },
+            "C": {"text": "Elegant & timeless (navy blue, burgundy)", "vibes": ["Preppy"]},
+            "D": {"text": "Neon & hot (hot pink, neon green)", "vibes": ["Gamer"]},
+            "E": {"text": "Bright & bold (bright red, neon yellow)", "vibes": ["Sporty"]},
+            "F": {"text": "Dark (black, charcoal gray, deep purple)", "vibes": ["Alternative"]},
         },
     },
     {
@@ -80,20 +66,14 @@ questions = [
             "C": {"text": "I am a perfectionist", "vibes": ["Preppy"]},
             "D": {"text": "I am lazy", "vibes": ["Gamer"]},
             "E": {"text": "I compare myself to others often", "vibes": ["Sporty"]},
-            "F": {
-                "text": "I am too chaotic / unpredictable",
-                "vibes": ["Alternative"],
-            },
+            "F": {"text": "I am too chaotic / unpredictable", "vibes": ["Alternative"]},
         },
     },
     {
         "question": "How much effort do you put into getting ready?",
         "options": {
             "A": {"text": "A lot! I love looking cute", "vibes": ["Soft", "Preppy"]},
-            "B": {
-                "text": "Just enough / very little effort",
-                "vibes": ["Casual", "Gamer"],
-            },
+            "B": {"text": "Just enough / very little effort", "vibes": ["Casual", "Gamer"]},
             "C": {"text": "Quick & practical", "vibes": ["Sporty"]},
             "D": {"text": "Depends, I like to stand out", "vibes": ["Alternative"]},
         },
@@ -105,34 +85,19 @@ questions = [
             "B": {"text": "Basic white sneakers", "vibes": ["Casual"]},
             "C": {"text": "Leather loafers", "vibes": ["Preppy"]},
             "D": {"text": "Slides or crocs", "vibes": ["Gamer"]},
-            "E": {
-                "text": "Running shoes or shoes with support",
-                "vibes": ["Sporty"],
-            },
+            "E": {"text": "Running shoes or shoes with support", "vibes": ["Sporty"]},
             "F": {"text": "Combat or platform boots", "vibes": ["Alternative"]},
         },
     },
     {
         "question": "What accessories do you usually wear?",
         "options": {
-            "A": {
-                "text": "Dainty necklaces or initial pendants",
-                "vibes": ["Soft"],
-            },
+            "A": {"text": "Dainty necklaces or initial pendants", "vibes": ["Soft"]},
             "B": {"text": "A simple watch or bracelet", "vibes": ["Casual"]},
             "C": {"text": "Polished jewelry", "vibes": ["Preppy"]},
-            "D": {
-                "text": "Lanyards or charms of your favorite character",
-                "vibes": ["Gamer"],
-            },
-            "E": {
-                "text": "Fitness tracker & a water bottle",
-                "vibes": ["Sporty"],
-            },
-            "F": {
-                "text": "Rings on every finger & multiple piercings",
-                "vibes": ["Alternative"],
-            },
+            "D": {"text": "Lanyards or charms of your favorite character", "vibes": ["Gamer"]},
+            "E": {"text": "Fitness tracker & a water bottle", "vibes": ["Sporty"]},
+            "F": {"text": "Rings on every finger & multiple piercings", "vibes": ["Alternative"]},
         },
     },
     {
@@ -192,6 +157,30 @@ def calculate_vibe(answers: list[str]) -> str:
             return vibe
 
     return "Casual"
+
+
+def get_shuffled_options(options: dict[str, dict]) -> list[tuple[str, dict]]:
+    option_items = list(options.items())
+    random.shuffle(option_items)
+    return option_items
+
+
+def get_next_button_text(
+    question_index: int,
+    total_questions: int,
+    has_answer: bool,
+) -> str:
+    if not has_answer:
+        return "Select an answer"
+    if question_index == total_questions - 1:
+        return "Submit Quiz →"
+    return "Next →"
+
+
+def get_next_button_state(has_answer: bool) -> str:
+    if has_answer:
+        return tk.NORMAL
+    return tk.DISABLED
 
 
 class DripDetectorQuiz:
@@ -304,20 +293,21 @@ class DripDetectorQuiz:
 
         self.next_button = tk.Button(
             self.nav_frame,
-            text="Next →",
+            text="Select an answer",
             font=("Helvetica", 11, "bold"),
-            bg=self.dark_accent,
-            fg="white",
+            bg="#d9d9d9",
+            fg="#666666",
             activeforeground="white",
             activebackground=self.primary_color,
-            disabledforeground="white",
+            disabledforeground="#666666",
             relief="flat",
             bd=0,
             highlightthickness=0,
-            width=14,
+            width=18,
             height=1,
             cursor="hand2",
             command=self.next_question,
+            state=tk.DISABLED,
         )
         self.next_button.pack(side=tk.LEFT, padx=8)
 
@@ -348,7 +338,7 @@ class DripDetectorQuiz:
             bd=0,
             width=700,
         )
-        question_card.pack(pady=(0, 6))
+        question_card.pack(pady=(0, 12))
         question_card.pack_propagate(False)
 
         question_label = tk.Label(
@@ -358,19 +348,20 @@ class DripDetectorQuiz:
             bg=self.card_color,
             fg=self.primary_color,
             wraplength=640,
-            justify=tk.LEFT,
+            justify=tk.CENTER,
             padx=20,
             pady=18,
         )
-        question_label.pack(anchor=tk.W)
+        question_label.pack()
 
         self.answer_var = tk.StringVar()
 
         if len(self.answers) > self.current_question_index:
             self.answer_var.set(self.answers[self.current_question_index])
 
-        options = question_data["options"]
-        for key, value in options.items():
+        options = get_shuffled_options(question_data["options"])
+
+        for key, value in options:
             option_text = value["text"]
 
             radio = tk.Radiobutton(
@@ -404,21 +395,42 @@ class DripDetectorQuiz:
 
         self.update_option_styles()
 
-        if self.current_question_index == len(questions) - 1:
-            self.next_button.config(text="Submit Quiz →")
-        else:
-            self.next_button.config(text="Next →")
-
         if self.current_question_index > 0:
             self.prev_button.config(state=tk.NORMAL)
         else:
             self.prev_button.config(state=tk.DISABLED)
 
-        if not self.answer_var.get():
-            self.next_button.config(state=tk.DISABLED)
-        else:
-            self.next_button.config(state=tk.NORMAL)
+        self.update_next_button()
 
+    def update_next_button(self) -> None:
+        has_answer = bool(self.answer_var and self.answer_var.get())
+
+        button_text = get_next_button_text(
+            self.current_question_index,
+            len(questions),
+            has_answer,
+        )
+
+        button_state = get_next_button_state(has_answer)
+        if has_answer:
+            self.next_button.config(
+                state=button_state,
+                text=button_text,
+                bg=self.dark_accent,
+                fg="white",
+                disabledforeground="white",
+                cursor="hand2",
+            )
+        else:
+            self.next_button.config(
+                state=button_state,
+                text=button_text,
+                bg="#d9d9d9",
+                fg="#666666",
+                disabledforeground="#666666",
+                cursor="arrow",
+            )
+            
     def update_option_styles(self) -> None:
         if not self.answer_var:
             return
@@ -450,7 +462,7 @@ class DripDetectorQuiz:
                 )
 
     def on_answer_selected(self) -> None:
-        self.next_button.config(state=tk.NORMAL)
+        self.update_next_button()
         self.update_option_styles()
 
     def next_question(self) -> None:
@@ -541,7 +553,9 @@ class DripDetectorQuiz:
 
         base_dir = os.path.dirname(os.path.abspath(__file__))
         image_filename = os.path.join(
-            base_dir, "images", f"{vibe_file_map[vibe]}{gender}.jpg"
+            base_dir,
+            "images",
+            f"{vibe_file_map[vibe]}{gender}.jpg",
         )
 
         for widget in self.content_frame.winfo_children():
@@ -702,11 +716,21 @@ class DripDetectorQuiz:
             shape_type = random.choice(["oval", "rect"])
             if shape_type == "oval":
                 item = self.confetti_canvas.create_oval(
-                    x, y, x + size, y + size, fill=color, outline=""
+                    x,
+                    y,
+                    x + size,
+                    y + size,
+                    fill=color,
+                    outline="",
                 )
             else:
                 item = self.confetti_canvas.create_rectangle(
-                    x, y, x + size, y + size, fill=color, outline=""
+                    x,
+                    y,
+                    x + size,
+                    y + size,
+                    fill=color,
+                    outline="",
                 )
 
             self.confetti_pieces.append(
@@ -715,7 +739,7 @@ class DripDetectorQuiz:
                     "dx": dx,
                     "dy": dy,
                     "size": size,
-                }
+                },
             )
 
         self.animate_confetti()
@@ -757,13 +781,15 @@ class DripDetectorQuiz:
         self.answers = []
         self.current_question_index = 0
         self.result_photo = None
+        self.answer_var = None
+        self.option_buttons = []
+        self.confetti_canvas = None
 
         for widget in self.content_frame.winfo_children():
             widget.destroy()
 
         self.setup_frames_in_content()
         self.show_question()
-
 
 def main() -> None:
     root = tk.Tk()
