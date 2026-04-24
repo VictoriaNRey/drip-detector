@@ -2,6 +2,7 @@
 detects your vibe based on a few quiz questions :)
 
 *drip - very swag and cool; can be used to describe an outfit/accessory, person, song, etc.*
+
 *used in a sentence: "yall like the drip?"*
 
 ## Project Overview
