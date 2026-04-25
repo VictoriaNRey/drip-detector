@@ -5,6 +5,8 @@ detects your vibe based on a few quiz questions :)
 
 *used in a sentence: "yall like the drip?"*
 
+## Authors: Victoria Rey, Christine Bui
+
 ## Project Overview
 
 The app asks a series of questions, collects your answers, figures out your vibe, and shows a result with an image and description
@@ -20,7 +22,7 @@ The six possible vibes are:
 
 ## Running the App
 
-1. Install Python if you have not already done so
+1. Install Python 3 if you have not already done so
 
 2. Download project from GitHub by clicking the green Code button and selecting 'Download Zip'
 
