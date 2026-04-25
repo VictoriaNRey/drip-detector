@@ -1,11 +1,16 @@
 # drip-detector
+
 detects your vibe based on a few quiz questions :)
 
 *drip - very swag and cool; can be used to describe an outfit/accessory, person, song, etc.*
 
 *used in a sentence: "yall like the drip?"*
 
-## Authors: Victoria Rey, Christine Bui
+## Authors
+
+Christine Bui
+
+Victoria Rey
 
 ## Project Overview
 
@@ -107,6 +112,7 @@ python3 -m pytest
 6. If all tests pass, you will see a message indicating that all tests were successful
 
 This will run all tests in test_drip_detector.py and display the results!
+
 ## Components
 
 - Business logic
